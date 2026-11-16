@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESG Serviços Técnicos</title>
+<meta name="description" content="Catálogo dos aplicativos da ESG Serviços Técnicos — cada cartão leva à página do app.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+  /* Cabeçalho com sol ESG + grade de cartões (um por projeto), lidos de projetos.json. */
+  :root{
+    --bg:#0e0e10; --surface:#17171b; --surface-2:#1f1f26; --fg:#f4f4f6; --muted:#a2a2ab;
+    --border:#2a2a32; --accent:#F38433; --accent-ink:#111111; --accent-2:#ffb270;
+    --ok:#30c57a; --beta:#4d9bff; --wip:#eab308;
+    --font-head:"Space Grotesk",system-ui,sans-serif; --font-body:"Inter",system-ui,sans-serif;
+    color-scheme:dark;
+  }
+  @media (prefers-color-scheme:light){ :root:not([data-theme="dark"]){
+    --bg:#f4f2ef; --surface:#ffffff; --surface-2:#f0ede7; --fg:#1b1b1e; --muted:#5c5c65;
+    --border:#e4ded4; --accent:#F38433; --accent-ink:#111111; --accent-2:#C25A12;
+    color-scheme:light;
+  }}
+  :root[data-theme="light"]{
+    --bg:#f4f2ef; --surface:#ffffff; --surface-2:#f0ede7; --fg:#1b1b1e; --muted:#5c5c65;
+    --border:#e4ded4; --accent:#F38433; --accent-ink:#111111; --accent-2:#C25A12;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--fg);font-family:var(--font-body);line-height:1.5;margin:0}
+  .wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  a{color:inherit}
+
+  header{padding-block:40px 8px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;gap:14px;min-width:0}
+  .sun{flex:none;width:44px;height:44px}
+  .brand h1{font-family:var(--font-head);font-weight:700;font-size:clamp(1.3rem,4.5vw,1.9rem);margin:0;letter-spacing:-.01em;line-height:1.05}
+  .brand .sub{color:var(--muted);font-size:.82rem;font-weight:500;margin-top:2px}
+  .toggle{flex:none;background:var(--surface);color:var(--fg);border:1px solid var(--border);border-radius:999px;
+    width:40px;height:40px;font-size:1.05rem;cursor:pointer;display:grid;place-items:center}
+  .toggle:hover{border-color:var(--accent)}
+
+  .lede{margin:26px 0 8px;max-width:60ch}
+  .lede h2{font-family:var(--font-head);font-weight:600;font-size:clamp(1.5rem,5vw,2.3rem);margin:0 0 10px;text-wrap:balance;letter-spacing:-.02em}
+  .lede p{color:var(--muted);margin:0;font-size:1.02rem}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;padding-block:28px 10px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+  .card .head{display:flex;align-items:center;gap:13px}
+  .ic{flex:none;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
+    background:linear-gradient(145deg,rgba(243,132,51,.20),rgba(243,132,51,.05));border:1px solid var(--border)}
+  .ic svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{font-family:var(--font-head);font-weight:600;font-size:1.12rem;margin:0;letter-spacing:-.01em}
+  .card .repo{color:var(--muted);font-size:.74rem;font-family:ui-monospace,monospace}
+  .card p{margin:0;color:var(--muted);font-size:.92rem;flex:1}
+  .meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px}
+  .pill{font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+  .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+  .pill.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,transparent)}
+  .pill.beta{color:var(--beta);background:color-mix(in srgb,var(--beta) 15%,transparent)}
+  .pill.wip{color:var(--wip);background:color-mix(in srgb,var(--wip) 15%,transparent)}
+  .open{background:var(--accent);color:var(--accent-ink);border:none;border-radius:10px;padding:9px 16px;
+    font-family:var(--font-head);font-weight:600;font-size:.9rem;cursor:pointer;text-decoration:none;display:inline-block}
+  .open:hover{background:var(--accent-2)}
+  .open.soon{background:var(--surface-2);color:var(--muted);cursor:default;border:1px solid var(--border)}
+  .vazio{color:var(--muted);padding:28px 0}
+
+  footer{border-top:1px solid var(--border);margin-top:40px;padding-block:24px 48px;color:var(--muted);font-size:.85rem;
+    display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:space-between}
+  footer a{color:var(--accent-2);text-decoration:none;font-weight:500}
+  @media (max-width:420px){ header{padding-block:28px 4px} .brand h1{font-size:1.25rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <svg class="sun" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="24" cy="24" r="8.5" fill="#F38433"/>
+          <g stroke="#F38433" stroke-width="3" stroke-linecap="round">
+            <line x1="24" y1="4" x2="24" y2="11"/><line x1="24" y1="37" x2="24" y2="44"/>
+            <line x1="4" y1="24" x2="11" y2="24"/><line x1="37" y1="24" x2="44" y2="24"/>
+            <line x1="10" y1="10" x2="15" y2="15"/><line x1="33" y1="33" x2="38" y2="38"/>
+            <line x1="38" y1="10" x2="33" y2="15"/><line x1="15" y1="33" x2="10" y2="38"/>
+          </g>
+        </svg>
+        <div>
+          <h1>ESG Serviços Técnicos</h1>
+          <div class="sub">Soluções digitais sob medida</div>
+        </div>
+      </div>
+      <button class="toggle" id="tema" title="Alternar tema" aria-label="Alternar tema">☾</button>
+    </div>
+
+    <div class="lede">
+      <h2>Nossos aplicativos, num lugar só.</h2>
+      <p>Catálogo dos projetos da ESG — cada cartão leva à página do aplicativo. Simples de usar, fáceis de encontrar.</p>
+    </div>
+  </header>
+
+  <main class="grid" id="grid"><div class="vazio">Carregando…</div></main>
+
+  <footer>
+    <span>© <span id="ano"></span> ESG Serviços Técnicos</span>
+    <span>Publicado no GitHub Pages · <a href="https://github.com/opusvix" target="_blank" rel="noopener">github.com/opusvix</a></span>
+  </footer>
+</div>
+
+<script>
+  // Ícones (um traço SVG por tipo de app).
+  const ICONES = {
+    moeda:'<path d="M12 3v18"/><path d="M8 7h5.5a3 3 0 0 1 0 6H8m0 0h6.5a3 3 0 0 1 0 6H8"/>',
+    carro:'<path d="M3 13l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 8l2 5"/><path d="M3 13h18v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><circle cx="7" cy="16" r="1"/><circle cx="17" cy="16" r="1"/>',
+    gota:'<path d="M12 3c3.5 4 6 7 6 10a6 6 0 0 1-12 0c0-3 2.5-6 6-10z"/>',
+    corpo:'<circle cx="12" cy="5" r="2.4"/><path d="M12 9v7m0 0l-3.5 5m3.5-5l3.5 5M6.5 11h11"/>',
+    chave:'<path d="M14.5 6a4 4 0 1 0 3.5 6l3 3-2 2-1.5-1.5M18 10l-9 9-3 .5.5-3 5.3-5.3"/>'
+  };
+  const STATUS = {ok:["ok","No ar"], beta:["beta","Beta"], wip:["wip","Em reconstrução"]};
+
+  function cartao(p){
+    const [cls,rotulo] = STATUS[p.status] || STATUS.wip;
+    const botao = p.link
+      ? `<a class="open" href="${p.link}" target="_blank" rel="noopener">Abrir →</a>`
+      : `<span class="open soon">Em breve</span>`;
+    return `<article class="card">
+      <div class="head">
+        <div class="ic"><svg viewBox="0 0 24 24">${ICONES[p.icone]||""}</svg></div>
+        <div style="min-width:0">
+          <h3>${p.nome}</h3>
+          <div class="repo">${p.repo||""}</div>
+        </div>
+      </div>
+      <p>${p.desc||""}</p>
+      <div class="meta"><span class="pill ${cls}">${rotulo}</span>${botao}</div>
+    </article>`;
+  }
+
+  // A "fonte de verdade" é o projetos.json (a tabela): adicionar um app = acrescentar um bloco lá.
+  fetch("projetos.json", {cache:"no-store"})
+    .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d => {
+      const lista = (d && d.projetos) || [];
+      document.getElementById("grid").innerHTML =
+        lista.length ? lista.map(cartao).join("") : '<div class="vazio">Nenhum projeto cadastrado ainda.</div>';
+    })
+    .catch(() => {
+      document.getElementById("grid").innerHTML =
+        '<div class="vazio">Não consegui carregar a lista de projetos (projetos.json).</div>';
+    });
+
+  document.getElementById("ano").textContent = new Date().getFullYear();
+
+  // Tema: segue o sistema; o botão força e lembra a escolha.
+  const root=document.documentElement, btn=document.getElementById("tema");
+  function pinta(){
+    const escuro = root.getAttribute("data-theme")==="dark" ||
+      (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+    btn.textContent = escuro ? "☀" : "☾";
+  }
+  try{ const s=localStorage.getItem("esg-tema"); if(s) root.setAttribute("data-theme",s); }catch(e){}
+  pinta();
+  btn.addEventListener("click",()=>{
+    const escuro = root.getAttribute("data-theme")==="dark" ||
+      (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+    const novo = escuro ? "light" : "dark";
+    root.setAttribute("data-theme",novo);
+    try{ localStorage.setItem("esg-tema",novo); }catch(e){}
+    pinta();
+  });
+</script>
+</body>
+</html>
