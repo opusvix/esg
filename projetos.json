@@ -1,0 +1,44 @@
+{
+  "projetos": [
+    {
+      "nome": "Controle Financeiro",
+      "repo": "opusvix/controle-financeiro",
+      "icone": "moeda",
+      "status": "ok",
+      "desc": "Finanças pessoais e da família: contas, cartões, leitura de cupom por foto e relatórios.",
+      "link": "https://opusvix.github.io/controle-financeiro/"
+    },
+    {
+      "nome": "Controle de Veículos",
+      "repo": "opusvix/controle-de-veiculos",
+      "icone": "carro",
+      "status": "ok",
+      "desc": "Gestão de frota: abastecimentos, consumo, emissão de CO₂, documentos e vencimentos.",
+      "link": "https://opusvix.github.io/controle-de-veiculos/"
+    },
+    {
+      "nome": "Glicemia",
+      "repo": "opusvix/glicemia",
+      "icone": "gota",
+      "status": "ok",
+      "desc": "Acompanhamento de glicemia: registros diários, metas e relatórios de saúde.",
+      "link": "https://opusvix.github.io/glicemia/"
+    },
+    {
+      "nome": "InBody",
+      "repo": "opusvix/inbody",
+      "icone": "corpo",
+      "status": "ok",
+      "desc": "Acompanha exames de bioimpedância (InBody120) ao longo do tempo: peso, gordura, massa muscular, gráficos de evolução e histórico.",
+      "link": "https://opusvix.github.io/inbody/"
+    },
+    {
+      "nome": "OficinaApp",
+      "repo": "opusvix/oficinaapp",
+      "icone": "chave",
+      "status": "wip",
+      "desc": "Gestão de oficina: ordens de serviço, clientes e peças. Em reconstrução total.",
+      "link": null
+    }
+  ]
+}
