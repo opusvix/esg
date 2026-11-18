@@ -3,109 +3,253 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ESG Serviços Técnicos</title>
-<meta name="description" content="Catálogo dos aplicativos da ESG Serviços Técnicos — cada cartão leva à página do app.">
+<title>ESG Serviços Técnicos — Soluções digitais sob medida</title>
+<meta name="description" content="A ESG Serviços Técnicos cria aplicativos sob medida para o dia a dia de quem gere dinheiro e frota. Conheça o Controle Financeiro e o Controle de Veículos.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="ESG Serviços Técnicos">
+<meta property="og:description" content="Aplicativos sob medida para finanças e frota. Simples de usar, fáceis de encontrar.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='8.5' fill='%23F38433'/%3E%3Cg stroke='%23F38433' stroke-width='3' stroke-linecap='round'%3E%3Cline x1='24' y1='4' x2='24' y2='11'/%3E%3Cline x1='24' y1='37' x2='24' y2='44'/%3E%3Cline x1='4' y1='24' x2='11' y2='24'/%3E%3Cline x1='37' y1='24' x2='44' y2='24'/%3E%3Cline x1='10' y1='10' x2='15' y2='15'/%3E%3Cline x1='33' y1='33' x2='38' y2='38'/%3E%3Cline x1='38' y1='10' x2='33' y2='15'/%3E%3Cline x1='15' y1='33' x2='10' y2='38'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
 <style>
-  /* Cabeçalho com sol ESG + grade de cartões (um por projeto), lidos de projetos.json. */
   :root{
+    /* Marca ESG */
     --bg:#0e0e10; --surface:#17171b; --surface-2:#1f1f26; --fg:#f4f4f6; --muted:#a2a2ab;
     --border:#2a2a32; --accent:#F38433; --accent-ink:#111111; --accent-2:#ffb270;
     --ok:#30c57a; --beta:#4d9bff; --wip:#eab308;
     --font-head:"Space Grotesk",system-ui,sans-serif; --font-body:"Inter",system-ui,sans-serif;
+    /* Escala de raio (gatilho 1) */
+    --r-1:10px; --r-2:14px; --r-3:20px; --r-pill:999px;
+    /* Sombra tingida com a cor da marca (gatilho 2) */
+    --shadow:0 1px 2px rgba(0,0,0,.25), 0 12px 30px -12px rgba(243,132,51,.28);
     color-scheme:dark;
   }
   @media (prefers-color-scheme:light){ :root:not([data-theme="dark"]){
     --bg:#f4f2ef; --surface:#ffffff; --surface-2:#f0ede7; --fg:#1b1b1e; --muted:#5c5c65;
-    --border:#e4ded4; --accent:#F38433; --accent-ink:#111111; --accent-2:#C25A12;
+    --border:#e6e0d6; --accent:#F38433; --accent-ink:#111111; --accent-2:#C25A12;
+    --shadow:0 1px 2px rgba(17,17,17,.04), 0 18px 40px -20px rgba(243,132,51,.35);
     color-scheme:light;
   }}
   :root[data-theme="light"]{
     --bg:#f4f2ef; --surface:#ffffff; --surface-2:#f0ede7; --fg:#1b1b1e; --muted:#5c5c65;
-    --border:#e4ded4; --accent:#F38433; --accent-ink:#111111; --accent-2:#C25A12;
+    --border:#e6e0d6; --accent:#F38433; --accent-ink:#111111; --accent-2:#C25A12;
+    --shadow:0 1px 2px rgba(17,17,17,.04), 0 18px 40px -20px rgba(243,132,51,.35);
     color-scheme:light;
   }
-  *{box-sizing:border-box}
-  body{background:var(--bg);color:var(--fg);font-family:var(--font-body);line-height:1.5;margin:0}
-  .wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-  a{color:inherit}
+  :root[data-theme="dark"]{ --shadow:none; }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ --shadow:none; } }
 
-  header{padding-block:40px 8px}
-  .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .brand{display:flex;align-items:center;gap:14px;min-width:0}
-  .sun{flex:none;width:44px;height:44px}
-  .brand h1{font-family:var(--font-head);font-weight:700;font-size:clamp(1.3rem,4.5vw,1.9rem);margin:0;letter-spacing:-.01em;line-height:1.05}
-  .brand .sub{color:var(--muted);font-size:.82rem;font-weight:500;margin-top:2px}
-  .toggle{flex:none;background:var(--surface);color:var(--fg);border:1px solid var(--border);border-radius:999px;
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:var(--font-body);line-height:1.55;margin:0;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1080px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .skip{position:absolute;left:-999px;top:0;background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:0 0 var(--r-1) 0;z-index:10}
+  .skip:focus{left:0}
+
+  /* Barra de topo */
+  .topbar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .topbar .row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+  .brand{display:flex;align-items:center;gap:12px;min-width:0;text-decoration:none}
+  .sun{flex:none;width:36px;height:36px}
+  .brand b{font-family:var(--font-head);font-weight:700;font-size:1.02rem;letter-spacing:-.01em;line-height:1.1}
+  .brand span{display:block;color:var(--muted);font-size:.72rem;font-weight:500}
+  nav{display:flex;align-items:center;gap:6px}
+  nav a{font-size:.9rem;font-weight:500;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:var(--r-pill)}
+  nav a:hover{color:var(--fg);background:var(--surface-2)}
+  .toggle{flex:none;background:var(--surface);color:var(--fg);border:1px solid var(--border);border-radius:var(--r-pill);
     width:40px;height:40px;font-size:1.05rem;cursor:pointer;display:grid;place-items:center}
   .toggle:hover{border-color:var(--accent)}
+  @media (max-width:640px){ nav a:not(.cta){display:none} }
 
-  .lede{margin:26px 0 8px;max-width:60ch}
-  .lede h2{font-family:var(--font-head);font-weight:600;font-size:clamp(1.5rem,5vw,2.3rem);margin:0 0 10px;text-wrap:balance;letter-spacing:-.02em}
-  .lede p{color:var(--muted);margin:0;font-size:1.02rem}
+  /* Herói com "momento" visual (gatilho 5): aurora/mesh sutil da marca */
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+  .hero::before{content:"";position:absolute;inset:-30% -10% auto -10%;height:120%;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(42% 55% at 12% 8%, rgba(243,132,51,.26), transparent 60%),
+      radial-gradient(38% 48% at 92% 22%, rgba(194,90,18,.22), transparent 62%);
+    filter:saturate(1.05)}
+  .hero .wrap{position:relative;z-index:1;padding-block:72px 64px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;color:var(--accent-2);
+    background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+    padding:6px 14px;border-radius:var(--r-pill);letter-spacing:.02em}
+  h1{font-family:var(--font-head);font-weight:700;font-size:clamp(2.1rem,6.5vw,3.6rem);line-height:1.02;letter-spacing:-.03em;
+    margin:20px 0 0;max-width:16ch;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent-2)}
+  .hero p{color:var(--muted);font-size:clamp(1.02rem,2.4vw,1.2rem);margin:18px 0 0;max-width:56ch}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+  .btn{font-family:var(--font-head);font-weight:600;font-size:.95rem;text-decoration:none;cursor:pointer;
+    padding:12px 22px;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--fg);
+    display:inline-flex;align-items:center;gap:8px;transition:transform .08s ease,border-color .15s ease}
+  .btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .btn-primary{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+  .btn-primary:hover{background:var(--accent-2)}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;padding-block:28px 10px}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+  /* Seções */
+  section.block{padding-block:72px}
+  .section-head{max-width:60ch}
+  h2{font-family:var(--font-head);font-weight:600;font-size:clamp(1.5rem,4vw,2.1rem);letter-spacing:-.02em;margin:0}
+  .section-head p{color:var(--muted);margin:10px 0 0;font-size:1.02rem}
+
+  /* Cartões de app em destaque */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:26px;margin-top:40px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-3);overflow:hidden;
+    display:flex;flex-direction:column;box-shadow:var(--shadow)}
+  .card .shot{aspect-ratio:16/9;background:var(--surface-2);border-bottom:1px solid var(--border);overflow:hidden}
+  .card .shot img{width:100%;height:100%;object-fit:cover}
+  .card .body{padding:26px 24px 24px;display:flex;flex-direction:column;gap:14px;flex:1}
   .card .head{display:flex;align-items:center;gap:13px}
-  .ic{flex:none;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
-    background:linear-gradient(145deg,rgba(243,132,51,.20),rgba(243,132,51,.05));border:1px solid var(--border)}
+  .ic{flex:none;width:44px;height:44px;border-radius:var(--r-2);display:grid;place-items:center;
+    background:linear-gradient(145deg,rgba(243,132,51,.22),rgba(243,132,51,.05));border:1px solid var(--border)}
   .ic svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .card h3{font-family:var(--font-head);font-weight:600;font-size:1.12rem;margin:0;letter-spacing:-.01em}
-  .card .repo{color:var(--muted);font-size:.74rem;font-family:ui-monospace,monospace}
-  .card p{margin:0;color:var(--muted);font-size:.92rem;flex:1}
-  .meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px}
-  .pill{font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+  .card h3{font-family:var(--font-head);font-weight:600;font-size:1.3rem;letter-spacing:-.01em;margin:0}
+  .pill{font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:var(--r-pill);display:inline-flex;align-items:center;gap:6px}
   .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
   .pill.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,transparent)}
   .pill.beta{color:var(--beta);background:color-mix(in srgb,var(--beta) 15%,transparent)}
   .pill.wip{color:var(--wip);background:color-mix(in srgb,var(--wip) 15%,transparent)}
-  .open{background:var(--accent);color:var(--accent-ink);border:none;border-radius:10px;padding:9px 16px;
-    font-family:var(--font-head);font-weight:600;font-size:.9rem;cursor:pointer;text-decoration:none;display:inline-block}
-  .open:hover{background:var(--accent-2)}
-  .open.soon{background:var(--surface-2);color:var(--muted);cursor:default;border:1px solid var(--border)}
+  .psr{display:flex;flex-direction:column;gap:8px;margin:2px 0}
+  .psr p{margin:0;font-size:.93rem;color:var(--muted)}
+  .psr p b{color:var(--fg);font-weight:600}
+  .psr .result b{color:var(--accent-2)}
+  .tags{list-style:none;display:flex;flex-wrap:wrap;gap:7px;padding:0;margin:2px 0}
+  .tags li{font-size:.74rem;font-weight:500;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);
+    padding:4px 11px;border-radius:var(--r-pill)}
+  .card-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:6px}
+  .card-links a{font-family:var(--font-head);font-weight:600;font-size:.88rem;text-decoration:none;padding:9px 16px;border-radius:var(--r-pill)}
+  .card-links a.go{background:var(--accent);color:var(--accent-ink)}
+  .card-links a.go:hover{background:var(--accent-2)}
+  .card-links a.ghost{border:1px solid var(--border);color:var(--fg)}
+  .card-links a.ghost:hover{border-color:var(--accent)}
   .vazio{color:var(--muted);padding:28px 0}
 
-  footer{border-top:1px solid var(--border);margin-top:40px;padding-block:24px 48px;color:var(--muted);font-size:.85rem;
+  /* Sobre */
+  .about{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-3);padding:clamp(28px,5vw,48px);margin-top:12px;box-shadow:var(--shadow)}
+  .about p{font-size:1.06rem;max-width:62ch;margin:0 0 22px}
+  .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px;margin-top:8px}
+  .about-grid h4{font-family:var(--font-head);font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-2);margin:0 0 10px}
+  .about-grid ul{margin:0;padding-left:18px;color:var(--muted);font-size:.95rem;display:flex;flex-direction:column;gap:5px}
+
+  /* Contato */
+  .contact{text-align:center;max-width:52ch;margin:0 auto}
+  .contact h2{text-align:center}
+  .contact p{color:var(--muted);margin:12px auto 26px}
+  .contact .actions{justify-content:center}
+
+  footer{border-top:1px solid var(--border);padding-block:28px 48px;color:var(--muted);font-size:.85rem;
     display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:space-between}
   footer a{color:var(--accent-2);text-decoration:none;font-weight:500}
-  @media (max-width:420px){ header{padding-block:28px 4px} .brand h1{font-size:1.25rem} }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="topbar">
-      <div class="brand">
-        <svg class="sun" viewBox="0 0 48 48" aria-hidden="true">
-          <circle cx="24" cy="24" r="8.5" fill="#F38433"/>
-          <g stroke="#F38433" stroke-width="3" stroke-linecap="round">
-            <line x1="24" y1="4" x2="24" y2="11"/><line x1="24" y1="37" x2="24" y2="44"/>
-            <line x1="4" y1="24" x2="11" y2="24"/><line x1="37" y1="24" x2="44" y2="24"/>
-            <line x1="10" y1="10" x2="15" y2="15"/><line x1="33" y1="33" x2="38" y2="38"/>
-            <line x1="38" y1="10" x2="33" y2="15"/><line x1="15" y1="33" x2="10" y2="38"/>
-          </g>
-        </svg>
-        <div>
-          <h1>ESG Serviços Técnicos</h1>
-          <div class="sub">Soluções digitais sob medida</div>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<div class="topbar">
+  <div class="wrap row">
+    <a class="brand" href="#top">
+      <svg class="sun" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="8.5" fill="#F38433"/>
+        <g stroke="#F38433" stroke-width="3" stroke-linecap="round">
+          <line x1="24" y1="4" x2="24" y2="11"/><line x1="24" y1="37" x2="24" y2="44"/>
+          <line x1="4" y1="24" x2="11" y2="24"/><line x1="37" y1="24" x2="44" y2="24"/>
+          <line x1="10" y1="10" x2="15" y2="15"/><line x1="33" y1="33" x2="38" y2="38"/>
+          <line x1="38" y1="10" x2="33" y2="15"/><line x1="15" y1="33" x2="10" y2="38"/>
+        </g>
+      </svg>
+      <span><b>ESG Serviços Técnicos</b><span>Soluções digitais sob medida</span></span>
+    </a>
+    <nav>
+      <a href="#aplicativos">Aplicativos</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+      <button class="toggle" id="tema" title="Alternar tema" aria-label="Alternar tema">☾</button>
+    </nav>
+  </div>
+</div>
+
+<main id="conteudo">
+  <section class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow">ESG Serviços Técnicos</span>
+      <h1>Aplicativos sob medida para <em>finanças e frota</em>.</h1>
+      <p>A ESG constrói ferramentas simples e confiáveis para quem precisa enxergar o próprio dinheiro e os próprios veículos — com cada número conferido e os dados sempre com você.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#aplicativos">Ver aplicativos</a>
+        <a class="btn" href="https://github.com/opusvix" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="#contato">Falar com a ESG</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="aplicativos">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Aplicativos em destaque</h2>
+        <p>Cada aplicativo nasce de um problema real: mostra o que resolve, o que foi construído e o resultado que entrega.</p>
+      </div>
+      <div class="cards" id="grid"><div class="vazio">Carregando…</div></div>
+    </div>
+  </section>
+
+  <section class="block" id="sobre" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head"><h2>Sobre a ESG</h2></div>
+      <div class="about">
+        <p>A ESG Serviços Técnicos desenvolve aplicativos de gestão sob medida, pensados para rodar no próprio computador ou celular do cliente, sem assinatura obrigatória e sem prender os dados na nuvem de ninguém. A prioridade é número que fecha: toda conta tem fórmula documentada e é conferida por testes automáticos antes de chegar na tela.</p>
+        <div class="about-grid">
+          <div>
+            <h4>O que fazemos</h4>
+            <ul>
+              <li>Gestão financeira</li>
+              <li>Controle de frota</li>
+              <li>Relatórios e indicadores</li>
+              <li>Apps para Windows e celular</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Como trabalhamos</h4>
+            <ul>
+              <li>Dados no aparelho do cliente</li>
+              <li>Cada métrica com fórmula única</li>
+              <li>Testes automáticos</li>
+              <li>Publicação no GitHub Pages</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Tecnologias</h4>
+            <ul>
+              <li>Python · FastAPI · SQLite</li>
+              <li>React · TypeScript</li>
+              <li>Tkinter · PWA</li>
+              <li>GitHub Actions</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <button class="toggle" id="tema" title="Alternar tema" aria-label="Alternar tema">☾</button>
     </div>
+  </section>
 
-    <div class="lede">
-      <h2>Nossos aplicativos, num lugar só.</h2>
-      <p>Catálogo dos projetos da ESG — cada cartão leva à página do aplicativo. Simples de usar, fáceis de encontrar.</p>
+  <section class="block" id="contato" style="padding-top:0">
+    <div class="wrap">
+      <div class="contact">
+        <h2>Vamos conversar</h2>
+        <p>Quer um aplicativo sob medida ou conhecer melhor o Controle Financeiro e o Controle de Veículos? Fale com a ESG.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:mauriciobarros1957@gmail.com">Enviar e-mail</a>
+          <a class="btn" href="https://github.com/opusvix" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
     </div>
-  </header>
+  </section>
+</main>
 
-  <main class="grid" id="grid"><div class="vazio">Carregando…</div></main>
-
+<div class="wrap">
   <footer>
     <span>© <span id="ano"></span> ESG Serviços Técnicos</span>
-    <span>Publicado no GitHub Pages · <a href="https://github.com/opusvix" target="_blank" rel="noopener">github.com/opusvix</a></span>
+    <span>Publicado no GitHub Pages · <a href="https://github.com/opusvix/esg" target="_blank" rel="noopener">github.com/opusvix/esg</a></span>
   </footer>
 </div>
 
@@ -119,36 +263,54 @@
     chave:'<path d="M14.5 6a4 4 0 1 0 3.5 6l3 3-2 2-1.5-1.5M18 10l-9 9-3 .5.5-3 5.3-5.3"/>'
   };
   const STATUS = {ok:["ok","No ar"], beta:["beta","Beta"], wip:["wip","Em reconstrução"]};
+  const esc = s => String(s==null?"":s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  function botoesLink(l){
+    if(!l) return "";
+    let out = "";
+    if(l.app)  out += `<a class="go" href="${esc(l.app)}" target="_blank" rel="noopener">Abrir app →</a>`;
+    if(l.site) out += `<a class="go" href="${esc(l.site)}" target="_blank" rel="noopener">Abrir site →</a>`;
+    if(l.github) out += `<a class="ghost" href="${esc(l.github)}" target="_blank" rel="noopener">GitHub</a>`;
+    return out;
+  }
 
   function cartao(p){
     const [cls,rotulo] = STATUS[p.status] || STATUS.wip;
-    const botao = p.link
-      ? `<a class="open" href="${p.link}" target="_blank" rel="noopener">Abrir →</a>`
-      : `<span class="open soon">Em breve</span>`;
+    const tags = (p.tags||[]).map(t => `<li>${esc(t)}</li>`).join("");
+    const imagem = p.imagem
+      ? `<div class="shot"><img src="${esc(p.imagem)}" alt="${esc(p.alt||p.nome)}" loading="lazy" decoding="async"></div>` : "";
+    const psr = `
+      <div class="psr">
+        <p><b>Problema:</b> ${esc(p.problema||p.resumo||"")}</p>
+        ${p.solucao ? `<p><b>Solução:</b> ${esc(p.solucao)}</p>` : ""}
+        ${p.resultado ? `<p class="result"><b>Resultado:</b> ${esc(p.resultado)}</p>` : ""}
+      </div>`;
     return `<article class="card">
-      <div class="head">
-        <div class="ic"><svg viewBox="0 0 24 24">${ICONES[p.icone]||""}</svg></div>
-        <div style="min-width:0">
-          <h3>${p.nome}</h3>
-          <div class="repo">${p.repo||""}</div>
+      ${imagem}
+      <div class="body">
+        <div class="head">
+          <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONES[p.icone]||""}</svg></div>
+          <h3>${esc(p.nome)}</h3>
+          <span class="pill ${cls}" style="margin-left:auto">${rotulo}</span>
         </div>
+        ${psr}
+        <ul class="tags" aria-label="Tecnologias">${tags}</ul>
+        <div class="card-links">${botoesLink(p.links)}</div>
       </div>
-      <p>${p.desc||""}</p>
-      <div class="meta"><span class="pill ${cls}">${rotulo}</span>${botao}</div>
     </article>`;
   }
 
-  // A "fonte de verdade" é o projetos.json (a tabela): adicionar um app = acrescentar um bloco lá.
+  // Fonte de verdade: projetos.json. Adicionar/editar um app = mexer só nesse arquivo.
   fetch("projetos.json", {cache:"no-store"})
     .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
     .then(d => {
-      const lista = (d && d.projetos) || [];
+      const lista = ((d && d.projetos) || []).filter(p => p.destaque !== false);
       document.getElementById("grid").innerHTML =
-        lista.length ? lista.map(cartao).join("") : '<div class="vazio">Nenhum projeto cadastrado ainda.</div>';
+        lista.length ? lista.map(cartao).join("") : '<div class="vazio">Nenhum aplicativo cadastrado ainda.</div>';
     })
     .catch(() => {
       document.getElementById("grid").innerHTML =
-        '<div class="vazio">Não consegui carregar a lista de projetos (projetos.json).</div>';
+        '<div class="vazio">Não consegui carregar a lista de aplicativos (projetos.json).</div>';
     });
 
   document.getElementById("ano").textContent = new Date().getFullYear();
