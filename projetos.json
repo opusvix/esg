@@ -1,6 +1,28 @@
 {
   "projetos": [
     {
+      "nome": "OficinaApp",
+      "repo": "opusvix/oficinaapp",
+      "icone": "chave",
+      "status": "beta",
+      "destaque": true,
+      "imagem": "assets/projetos/oficinaapp/os-lista.webp",
+      "alt": "Lista de ordens de serviço do OficinaApp com situação, cliente e orçamento",
+      "resumo": "Gestão de assistência técnica: Ordem de Serviço da entrada à entrega assinada.",
+      "problema": "Ordens de serviço em papel ou planilha se perdem, o cliente liga para saber do conserto e o orçamento aprovado no telefone vira discussão na entrega.",
+      "solucao": "App que roda no computador da assistência, com 12 situações de O.S., orçamento aprovado pelo cliente num link no celular, peças do estoque e assinatura na entrega.",
+      "resultado": "Cada O.S. tem histórico, responsável e aprovação registrada; licença por CPF/CNPJ conferida sem internet.",
+      "tags": [
+        "Flask",
+        "SQLite",
+        "PWA",
+        "Licença por CNPJ"
+      ],
+      "links": {
+        "site": "oficinaapp/"
+      }
+    },
+    {
       "nome": "Controle Financeiro",
       "repo": "opusvix/controle-financeiro",
       "icone": "moeda",
@@ -12,7 +34,12 @@
       "problema": "Contas, cartões e compras de mercado ficam espalhados, e apps de mercado mostram números que não batem entre si na mesma tela.",
       "solucao": "App de desktop que consolida contas e faturas e lê cupons fiscais (NFC-e) item a item, com um dicionário de métricas em que cada número tem uma única fórmula.",
       "resultado": "140 testes automáticos conferem as regras e o total do gráfico por categoria sempre bate com o card de despesas: zero divergência entre telas.",
-      "tags": ["Desktop", "FastAPI", "SQLite", "React"],
+      "tags": [
+        "Desktop",
+        "FastAPI",
+        "SQLite",
+        "React"
+      ],
       "links": {
         "app": "https://opusvix.github.io/controle-financeiro/",
         "github": "https://github.com/opusvix/controle-financeiro"
@@ -30,7 +57,12 @@
       "problema": "O custo real de um carro ou de uma frota fica espalhado entre notas de posto, recibos de oficina e anotações soltas.",
       "solucao": "App de Windows com versão para celular, que sincroniza pela rede Wi-Fi da casa, para abastecimentos, manutenções e documentos — sem depender da internet.",
       "resultado": "12 indicadores por período e veículo, incluindo km/L e R$/km de cada abastecimento, com aviso de revisão atrasada e consumo fora da média.",
-      "tags": ["Desktop", "Python", "Celular", "Indicadores"],
+      "tags": [
+        "Desktop",
+        "Python",
+        "Celular",
+        "Indicadores"
+      ],
       "links": {
         "site": "https://opusvix.github.io/controle-de-veiculos/",
         "github": "https://github.com/opusvix/controle-de-veiculos"
